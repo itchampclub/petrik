@@ -334,7 +334,6 @@ class BotMan
             $messageData = $command->toArray();
             $pattern = $messageData['pattern'];
             $callback = $messageData['callback'];
-            error_log("messageData : ".json_encode($messageData));
 
             if (! $callback instanceof Closure) {
                 if (strpos($callback, '@') === false) {
@@ -348,12 +347,7 @@ class BotMan
                 $message = $this->applyMiddleware($message, $this->middleware);
                 $message = $this->applyMiddleware($message, $messageData['middleware']);
 
-                error_log("isBotFalse :".!$this->isBot());
-                error_log("isMessageMatching :".$this->isMessageMatching($message, $pattern, $matches, $messageData['middleware']));
-                error_log("validDriver : ".$this->isDriverValid($this->driver->getName(), $messageData['driver']));
-                error_log("validChannel : ".$this->isChannelValid($message->getChannel(), $messageData['channel']));
-                error_log("loadedConversation : ".!$this->loadedConversation);
-
+               
                 if (! $this->isBot() &&
                     $this->isMessageMatching($message, $pattern, $matches, $messageData['middleware']) &&
                     $this->isDriverValid($this->driver->getName(), $messageData['driver']) &&
@@ -374,7 +368,7 @@ class BotMan
                     array_unshift($parameters, $this);
 
                     $parameters = $this->addDataParameters($message, $parameters);
-
+                    error_log("parameters : ".json_encode($parameters));
                     call_user_func_array($callback, $parameters);
                 }
             }
@@ -535,8 +529,7 @@ class BotMan
      */
     protected function isDriverValid($driverName, $allowedDrivers)
     {
-        error_log("driverName : ".$driverName);
-        error_log("isNull allowedDrivers : ". ! is_null($allowedDrivers));
+
         if (! is_null($allowedDrivers)) {
             return Collection::make($allowedDrivers)->contains($driverName);
         }
