@@ -228,7 +228,7 @@ class LINEDriver extends Driver
      */
     public function getName()
     {
-        return 'LINEDriver';
+        return 'LINE';
     }
 
     public function leaveChat()
