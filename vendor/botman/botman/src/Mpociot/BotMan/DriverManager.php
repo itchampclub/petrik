@@ -30,7 +30,7 @@ use Mpociot\BotMan\Drivers\FacebookPostbackDriver;
 use Mpociot\BotMan\Drivers\TelegramLocationDriver;
 use Mpociot\BotMan\Drivers\BotFrameworkImageDriver;
 use Mpociot\BotMan\Drivers\BotFrameworkAttachmentDriver;
-use Mpociot\BotMan\Drivers\CustomDrivers\LINEDriver;
+use Mpociot\BotMan\Drivers\LINEDriver;
 
 class DriverManager
 {
