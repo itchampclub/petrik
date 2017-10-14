@@ -18,7 +18,8 @@ $config = [
 date_default_timezone_set('Asia/Jakarta');
 $yesNoList = array("Iya", "Nggak");
 
-DriverManager::loadDriver(LINEDriver::class);
+DriverManager::loadDriver(\BotMan\Drivers\LINEDriver::class);
+
 // create an instance
 $botman = BotManFactory::create($config);
 
