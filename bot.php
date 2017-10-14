@@ -38,8 +38,22 @@ $botman->on('join',  function($payload, $bot) {
 
 })->driver(LINEDriver::class);
 */
+$botman->hears('test 123',  function(BotMan $bot) {
+    $replyText = 'test 123';
+	$reply = array(
+				array(
+					'type' => 'text',					
+					'text' => $replyText
+				)
+		);
+
+	$bot->reply($reply);
+	$bot->leaveChat();
+
+})->driver(LINEDriver::class);
 
 $botman->hears('(/kids jaman now/)',  function(BotMan $bot) {
+	error_log("abc");
     $replyText = 'Wahh, gw ketahuan';
 	$reply = array(
 				array(
