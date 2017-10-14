@@ -149,7 +149,7 @@ $botman->hear('(/(makan dimana|makan di mana)/)',  function($bot, $string) {
 							'text' => $urlPlaces
 						)
 					
-				)
+				);
 			
 				
 		
@@ -161,7 +161,7 @@ $botman->hear('(/(makan dimana|makan di mana)/)',  function($bot, $string) {
 							'type' => 'text',					
 							'text' => $replyText
 						)
-				)
+				);
 		
 	}
 
@@ -196,7 +196,7 @@ $botman->hear('(/rekomendasi tempat/)',  function($bot) {
 							'text' => $urlPlaces
 						)
 					
-				)
+				);
 
 				
 		
@@ -208,7 +208,7 @@ $botman->hear('(/rekomendasi tempat/)',  function($bot) {
 							'type' => 'text',					
 							'text' => $replyText
 						)
-				)		
+				);		
 	}
 
 	$bot->reply($reply);
@@ -311,7 +311,7 @@ $bot->receivesLocation(function($bot, Location $location) {
 								'type' => 'text',					
 								'text' => $urlPlaces
 							)
-					)
+					);
 
 	}
 	else {
