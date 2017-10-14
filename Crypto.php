@@ -6,7 +6,7 @@ class Crypto {
         $this->urlSuffix = "ticker";
         $this->cryptoList = array(
         	"btc",
-        	"bth",
+        	"bch",
         	"eth",
         	"etc",
         	"ltc",

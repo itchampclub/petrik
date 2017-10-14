@@ -29,6 +29,13 @@ $yesNoList = array("Iya", "Nggak");
 
 
 $helloPattern = '/'.'^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)'.'/';
+$currencyPattern = '/'.'nilai tukar (...)+ ke (...)+'.'/';
+$cryptoPattern = '/'.'info harga crypto (...)+'.'/';
+$wnzPattern = '/'.'^apakah (erwin|erwinwnz|win|winz|winzz|wnz)'.'/';
+$eatPlacePattern = '/'.'(makan dimana|makan di mana)'.'/';
+$placeRecommendationPattern = '/'.'rekomendasi tempat'.'/';
+$salamPattern ='/'.'(selamat)? (pagi|siang|sore|malam) (pet|petrik)'.'/';
+$greetingPattern = '/'.'(good)? (morning|afternoon|evening|night) (pet|petrik)'.'/';
 
 if($type == 'join') {
 	$replyText = 'Halo, kenalin gw Petrik, teman nya Kerang Ajaib'.chr(10);
@@ -94,7 +101,7 @@ else if($message['type']=='text')
 			
 		
 	}
-	else if(strpos($incomingMsg, "nilai tukar ") !== false)
+	else if(preg_match($currencyPattern, $incomingMsg))
 	{
 		$currency   = new CurrencyExchange();
 		$stringAfterCommand = substr($incomingMsg, strrpos($incomingMsg, "nilai tukar ")+12);
@@ -134,7 +141,7 @@ else if($message['type']=='text')
 							);
 
 	}
-	else if(strpos($incomingMsg, "info harga crypto ") !== false)
+	else if(preg_match($cryptoPattern, $incomingMsg))
 	{
 		$crypto 	= new Crypto();
 		$stringAfterCommand = substr($incomingMsg, strrpos($incomingMsg, "info harga crypto ")+18);
@@ -173,8 +180,8 @@ else if($message['type']=='text')
 	}
 	else if(strpos($incomingMsg,"apakah ") !== false)
 	{
-		$stringAfterCommand = substr($incomingMsg, strrpos($incomingMsg, "apakah ")+7);
-		if(strpos($stringAfterCommand, "erwin") !== false || strpos($stringAfterCommand, "erwinwnz") !== false || strpos($stringAfterCommand, "wnz") !== false || strpos($stringAfterCommand, "winz") !== false || strpos($stringAfterCommand, "winzz") !== false) {
+		
+		if(preg_match($wnzPattern,$incomingMsg)) {
 			$replyText = 'All hail @erwinwnz';
 		}
 		else {
@@ -192,7 +199,7 @@ else if($message['type']=='text')
 							);
 
 	}
-	else if(strpos($incomingMsg,"makan dimana") !== false || strpos($incomingMsg,"makan di mana") !== false)
+	else if(preg_match($eatPlacePattern, $incomingMsg))
 	{
 		
 		$zomato = new Zomato();
@@ -235,7 +242,7 @@ else if($message['type']=='text')
 			
 		}
 	}
-	else if(strpos($incomingMsg,"rekomendasi tempat") !== false)
+	else if(preg_match($placeRecommendationPattern, $incomingMsg))
 	{
 		$query = substr($incomingMsg, strrpos($incomingMsg, "rekomendasi ")+12);
 		if(strpos($query,",") !== false) {
@@ -299,104 +306,92 @@ else if($message['type']=='text')
 								);
 		}
 	}
-	else if(strpos($incomingMsg, "selamat")!== false) {
-		$stringAfterCommand = substr($incomingMsg, strrpos($incomingMsg, "selamat")+7);
-		if(strpos($stringAfterCommand, "pagi")!== false || strpos($stringAfterCommand, "siang")!== false || strpos($stringAfterCommand, "sore")!== false || strpos($stringAfterCommand, "malam")!== false){
-			$petrik = substr($incomingMsg, strrpos($incomingMsg, "pet"));
-			error_log($petrik);
-			if($petrik == "pet" || $petrik == "petrik") {	
-				$currentHour = date('H');
-				
-				if($currentHour > 3 && $currentHour <= 11) {
-					$replyText = "selamat pagi ";
-				}
-				else if($currentHour > 12 && $currentHour <= 15) {
-					$replyText = "selamat siang ";
-				}
-				else if($currentHour > 15 && $currentHour <= 17) {
-					$replyText = "selamat sore ";
-				}
-				else {
-					$replyText = "selamat malam ";
-				}
-
-				$userData = null;
-				if($source['type'] == "group") {
-					$userData = $client->getProfilFromGroup($userId, $source['groupId']);
-				}
-				else if($source['type'] == "room") {
-					$userData = $client->getProfilFromRoom($userId, $source['roomId']);
-				}
-				else if($source['type'] == "user") {
-					$userData = $client->profil($userId);
-				}
-				
-				if($userData != null) {
-					$replyText .= $userData['displayName'];
-				}
-
-				$reply = array(
-										'replyToken' => $replyToken,														
-										'messages' => array(
-											array(
-													'type' => 'text',					
-													'text' => $replyText
-												)
-										)
-									);
+	else if(preg_match($salamPattern, $incomingMsg)) {
+			
+			$currentHour = date('H');
+			
+			if($currentHour > 3 && $currentHour <= 11) {
+				$replyText = "selamat pagi ";
 			}
-		}
-	}
-	else if(strpos($incomingMsg, "good")!== false) {
-		$stringAfterCommand = substr($incomingMsg, strrpos($incomingMsg, "good")+4);
-		if(strpos($stringAfterCommand, "morning")!== false || strpos($stringAfterCommand, "afternoon")!== false || strpos($stringAfterCommand, "evening")!== false || strpos($stringAfterCommand, "night")!== false){
-			$petrik = substr($incomingMsg, strrpos($incomingMsg, "pet"));
-			if($petrik == "pet" || $petrik == "petrik") {
-				
-				$currentHour = date('H');
-				
-				if($currentHour > 3 && $currentHour <= 11) {
-					$replyText = "good morning ";
-				}
-				else if($currentHour > 12 && $currentHour <= 15) {
-					$replyText = "good afternoon ";
-				}
-				else if($currentHour > 15 && $currentHour <= 17) {
-					$replyText = "good evening ";
-				}
-				else {
-					$replyText = "good night ";
-				}
-
-				$userData = null;
-				if($source['type'] == "group") {
-					$userData = $client->getProfilFromGroup($userId, $source['groupId']);
-				}
-				else if($source['type'] == "room") {
-					$userData = $client->getProfilFromRoom($userId, $source['roomId']);
-				}
-				else if($source['type'] == "user") {
-					$userData = $client->profil($userId);
-				}
-				
-				if($userData != null) {
-					$replyText .= $userData['displayName'];
-				}
-				
-				$reply = array(
-										'replyToken' => $replyToken,														
-										'messages' => array(
-											array(
-													'type' => 'text',					
-													'text' => $replyText
-												)
-										)
-									);
+			else if($currentHour > 12 && $currentHour <= 15) {
+				$replyText = "selamat siang ";
 			}
-		}
-	}
-	
+			else if($currentHour > 15 && $currentHour <= 17) {
+				$replyText = "selamat sore ";
+			}
+			else {
+				$replyText = "selamat malam ";
+			}
 
+			$userData = null;
+			if($source['type'] == "group") {
+				$userData = $client->getProfilFromGroup($userId, $source['groupId']);
+			}
+			else if($source['type'] == "room") {
+				$userData = $client->getProfilFromRoom($userId, $source['roomId']);
+			}
+			else if($source['type'] == "user") {
+				$userData = $client->profil($userId);
+			}
+			
+			if($userData != null) {
+				$replyText .= $userData['displayName'];
+			}
+
+			$reply = array(
+									'replyToken' => $replyToken,														
+									'messages' => array(
+										array(
+												'type' => 'text',					
+												'text' => $replyText
+											)
+									)
+								);
+		
+		
+	}
+	else if(preg_match($greetingPattern, $incomingMsg) {
+				
+			$currentHour = date('H');
+			
+			if($currentHour > 3 && $currentHour <= 11) {
+				$replyText = "good morning ";
+			}
+			else if($currentHour > 12 && $currentHour <= 15) {
+				$replyText = "good afternoon ";
+			}
+			else if($currentHour > 15 && $currentHour <= 17) {
+				$replyText = "good evening ";
+			}
+			else {
+				$replyText = "good night ";
+			}
+
+			$userData = null;
+			if($source['type'] == "group") {
+				$userData = $client->getProfilFromGroup($userId, $source['groupId']);
+			}
+			else if($source['type'] == "room") {
+				$userData = $client->getProfilFromRoom($userId, $source['roomId']);
+			}
+			else if($source['type'] == "user") {
+				$userData = $client->profil($userId);
+			}
+			
+			if($userData != null) {
+				$replyText .= $userData['displayName'];
+			}
+			
+			$reply = array(
+									'replyToken' => $replyToken,														
+									'messages' => array(
+										array(
+												'type' => 'text',					
+												'text' => $replyText
+											)
+									)
+								);
+		
 		
 }
 else if($message['type']=='location') {
