@@ -78,15 +78,15 @@ class LINEDriver extends Driver
         }
         
         if(isset($data['events'][0]) && !empty($data['events'][0])) {
-            $this->payload  = Collection::make((array) $data['events'][0]);
+            $this->payload        = Collection::make((array) $data['events'][0]);
             error_log($this->payload);
-            $this->event    = $this->payload->get('type'); 
-            $source         = $this->payload->get('source');
-            $userId         = $this->source->get('userId');
-            $replyToken     = $this->payload->get('replyToken');
-            $timestamp      = $this->payload->get('timestamp');
-            $message        = strtolower($this->payload->get('message'));
-            $messageid      = $this->message->get('id');
+            $this->event          = $this->payload->get('type'); 
+            $this->source         = $this->payload->get('source');
+            $this->userId         = $this->source->get('userId');
+            $this->replyToken     = $this->payload->get('replyToken');
+            $this->timestamp      = $this->payload->get('timestamp');
+            $this->message        = strtolower($this->payload->get('message'));
+            $this->messageid      = $this->message->get('id');
         }
     }
 
@@ -231,11 +231,11 @@ class LINEDriver extends Driver
     public function leaveChat()
     {
         $url = '';
-        if($this->event == "group") {
+        if($this->source->get('type') == "group") {
              $groupId = $this->source->get('groupId');
              $url = 'https://api.line.me/v2/bot/group/'.$groupId.'/leave';
         }
-        else if($this->event == "room") {
+        else if($this->source->get('type') == "room") {
             $roomId = $this->source->get('roomId');
              $url = 'https://api.line.me/v2/bot/group/'.$roomId.'/leave';
         }
