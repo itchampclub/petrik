@@ -62,35 +62,35 @@ else if($message['type']=='text')
 		$leave = true;
 
 	}
-	else if(strpos($incomingMsg, "hi ") !== false || strpos($incomingMsg, "hai ") !== false || strpos($incomingMsg, "hei ") !== false || strpos($incomingMsg, "hey ") !== false || strpos($incomingMsg, "hay ") !== false
-		|| strpos($incomingMsg, "hello ") !== false || strpos($incomingMsg, "hallo ") !== false || strpos($incomingMsg, "helo ") !== false || strpos($incomingMsg, "halo ") !== false)
+	$helloPattern = '\/^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)\/';
+	else if(preg_match($helloPattern, $incomingMsg))
 	{
-		if(strpos($incomingMsg, "petrik") !== false || strpos($incomingMsg, "pet ") !== false) {
-			$userData = null;
-			if($source['type'] == "group") {
-				$userData = $client->getProfilFromGroup($userId, $source['groupId']);
-			}
-			else if($source['type'] == "room") {
-				$userData = $client->getProfilFromRoom($userId, $source['roomId']);
-			}
-			else if($source['type'] == "user") {
-				$userData = $client->profil($userId);
-			}
-			
-			if($userData != null) {
-				$replyText = "Hi ".$userData['displayName'];
-				$reply = array(
-								'replyToken' => $replyToken,														
-								'messages' => array(
-									array(
-											'type' => 'text',					
-											'text' => $replyText
-										)
-								)
-							);
-			}
-			
+		
+		$userData = null;
+		if($source['type'] == "group") {
+			$userData = $client->getProfilFromGroup($userId, $source['groupId']);
 		}
+		else if($source['type'] == "room") {
+			$userData = $client->getProfilFromRoom($userId, $source['roomId']);
+		}
+		else if($source['type'] == "user") {
+			$userData = $client->profil($userId);
+		}
+		
+		if($userData != null) {
+			$replyText = "Hi ".$userData['displayName'];
+			$reply = array(
+							'replyToken' => $replyToken,														
+							'messages' => array(
+								array(
+										'type' => 'text',					
+										'text' => $replyText
+									)
+							)
+						);
+		}
+			
+		
 	}
 	else if(strpos($incomingMsg, "nilai tukar ") !== false)
 	{
