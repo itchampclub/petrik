@@ -148,7 +148,7 @@ class LINEDriver extends Driver
      */
     public function isConfigured()
     {
-        return $this->config->has('foo');
+        ! is_null($this->config->get('channelAccessToken'));
     }
 
 
@@ -213,7 +213,7 @@ class LINEDriver extends Driver
                                 'replyToken' => $this->replyToken,
                                 'messages' => $message
                                 );
-        $this->http->post('https://api.line.me/v2/bot/message/reply', [], $additionalParameters);
+        $this->http->post('https://api.line.me/v2/bot/message/reply', [], $additionalParameters, $header);
     }
 
     /**
@@ -240,6 +240,25 @@ class LINEDriver extends Driver
        
         if($url != '')
             $this->http->get($url, [], $this->generateHeader());
+    }
+
+     /**
+     * Low-level method to perform driver specific API requests.
+     *
+     * @param string $endpoint
+     * @param array $parameters
+     * @param Message $matchingMessage
+     * @return Response
+     */
+    public function sendRequest($endpoint, array $parameters, Message $matchingMessage)
+    {
+        $header = $this->generateHeader();
+        
+        $parameters = array_replace_recursive([
+            'replyToken' => $this->replyToken,
+        ], $parameters);
+
+        return $this->http->post($endpoint, [], $parameters, $header);
     }
 
 }
