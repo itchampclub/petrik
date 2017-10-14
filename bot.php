@@ -62,10 +62,10 @@ else if($message['type']=='text')
 		$leave = true;
 
 	}
-	$helloPattern = '\/^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)\/';
+	$helloPattern = '/'.'^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)'.'/';
 	else if(preg_match($helloPattern, $incomingMsg))
 	{
-		
+
 		$userData = null;
 		if($source['type'] == "group") {
 			$userData = $client->getProfilFromGroup($userId, $source['groupId']);
