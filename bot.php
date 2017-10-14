@@ -52,7 +52,7 @@ $botman->hears('(/kids jaman now/)',  function($bot) {
 	$bot->leaveChat();
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $botman->hears('(/^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)/)',  function($bot) {
     $userData = $bot->getUser();
@@ -68,7 +68,7 @@ $botman->hears('(/^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)/)',  func
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $botman->hears('(/nilai tukar {from} ke {to}/)',  function($bot, $from, $to) {
     $currency   = new CurrencyExchange();
@@ -90,7 +90,7 @@ $botman->hears('(/nilai tukar {from} ke {to}/)',  function($bot, $from, $to) {
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $botman->hears('(/info harga crypto {crypto}/)',  function($bot, $crypto) {
     $crypto = new Crypto();
@@ -114,7 +114,7 @@ $botman->hears('(/info harga crypto {crypto}/)',  function($bot, $crypto) {
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $botman->hears('(/^apakah {string}/)',  function($bot, $string) {
     
@@ -138,7 +138,7 @@ $botman->hears('(/^apakah {string}/)',  function($bot, $string) {
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $botman->hears('(/(makan dimana|makan di mana)/)',  function($bot, $string) {
     
@@ -179,7 +179,7 @@ $botman->hears('(/(makan dimana|makan di mana)/)',  function($bot, $string) {
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $botman->hears('(/rekomendasi tempat/)',  function($bot) {
     
@@ -226,7 +226,7 @@ $botman->hears('(/rekomendasi tempat/)',  function($bot) {
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $botman->hears('(/^(selamat)? (pagi|siang|sore|malam) (pet|petrik)/)',  function($bot) {
     $userData = $bot->getUser();
@@ -256,7 +256,7 @@ $botman->hears('(/^(selamat)? (pagi|siang|sore|malam) (pet|petrik)/)',  function
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $botman->hears('(/^(good)? (morning|afternoon|evening|night) (pet|petrik)/)',  function($bot) {
     $userData = $bot->getUser();
@@ -286,7 +286,7 @@ $botman->hears('(/^(good)? (morning|afternoon|evening|night) (pet|petrik)/)',  f
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $botman->hears('(/^(siapa)? (..)?(nyipta|cipta|buat|develop|creator)(..)? (pet|petrik)/)',  function($bot) {
    
@@ -301,7 +301,7 @@ $botman->hears('(/^(siapa)? (..)?(nyipta|cipta|buat|develop|creator)(..)? (pet|p
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
-$botman->listen();
+
 
 $bot->receivesLocation(function($bot, Location $location) {
     $lat = $location->getLatitude();
@@ -342,7 +342,7 @@ $bot->receivesLocation(function($bot, Location $location) {
 	}
 
 	$bot->reply($reply);
-});
+})->driver(LINEDriver::class);
 
 $botman->listen();
 
