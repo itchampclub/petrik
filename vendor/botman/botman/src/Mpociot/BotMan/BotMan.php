@@ -347,7 +347,7 @@ class BotMan
                 $message = $this->applyMiddleware($message, $this->middleware);
                 $message = $this->applyMiddleware($message, $messageData['middleware']);
 
-               
+               error_log("driver : ".json_encode($this->driver));
                 if (! $this->isBot() &&
                     $this->isMessageMatching($message, $pattern, $matches, $messageData['middleware']) &&
                     $this->isDriverValid($this->driver->getName(), $messageData['driver']) &&
@@ -366,7 +366,6 @@ class BotMan
                     }
                     $this->matches = $parameters;
                     array_unshift($parameters, $this);
-                    error_log("driver : ".json_encode($this->getDriver()));
                     $parameters = $this->addDataParameters($message, $parameters);
                     call_user_func_array($callback, $parameters);
                 }
