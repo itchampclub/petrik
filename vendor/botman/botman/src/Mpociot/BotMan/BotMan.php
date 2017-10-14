@@ -233,7 +233,7 @@ class BotMan
         $command->applyGroupAttributes($this->groupAttributes);
 
         $this->listenTo[] = $command;
-
+        error_log("command : ".json_encode($command));
         return $command;
     }
 
@@ -354,6 +354,7 @@ class BotMan
                     $this->isChannelValid($message->getChannel(), $messageData['channel']) &&
                     $this->loadedConversation === false
                 ) {
+                    error_log('botman debug 1');
                     $this->message = $message;
                     $heardMessage = true;
                     $parameterNames = $this->compileParameterNames($pattern);
@@ -373,6 +374,7 @@ class BotMan
             }
         }
         if ($heardMessage === false && ! $this->isBot() && is_callable($this->fallbackMessage) && $this->loadedConversation === false) {
+            error_log('botman debug 2');
             $this->message = $this->getMessages()[0];
             call_user_func($this->fallbackMessage, $this);
         }
@@ -387,6 +389,7 @@ class BotMan
      */
     protected function isMessageMatching(Message $message, $pattern, &$matches, $messageMiddleware = [])
     {
+        error_log("matching message..");
         $matches = [];
 
         $messageText = $message->getMessage();
