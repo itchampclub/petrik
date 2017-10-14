@@ -65,7 +65,7 @@ class LINEDriver extends Driver
             error_log("Missing request body");
             exit();
         }
-        if (!hash_equals($this->sign($entityBody), $request->server->get['HTTP_X_LINE_SIGNATURE'])) {
+        if (!hash_equals($this->sign($entityBody), $request->server->get('HTTP_X_LINE_SIGNATURE'))) {
             http_response_code(400);
             error_log("Invalid signature value");
             exit();
@@ -91,10 +91,8 @@ class LINEDriver extends Driver
 
     private function sign($body)
     {
-        error_log("entityBody :".json_encode($body));
         $hash = hash_hmac('sha256', $body, $this->config->get('channelSecret'), true);
         $signature = base64_encode($hash);
-        error_log("signature :".$signature);
         return $signature;
     }
 
