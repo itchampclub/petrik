@@ -82,7 +82,7 @@ class LINEDriver extends Driver
             error_log($this->payload);
             $this->event          = $this->payload->get('type'); 
             $this->source         = $this->payload->get('source');
-            $this->userId         = $this->source->get('userId');
+            $this->userId         = $this->source['userId'];
             $this->replyToken     = $this->payload->get('replyToken');
             $this->timestamp      = $this->payload->get('timestamp');
             $this->message        = strtolower($this->payload->get('message'));
