@@ -85,8 +85,8 @@ class LINEDriver extends Driver
             $this->userId         = $this->source['userId'];
             $this->replyToken     = $this->payload->get('replyToken');
             $this->timestamp      = $this->payload->get('timestamp');
-            $this->message        = strtolower($this->payload->get('message'));
-            $this->messageid      = $this->message->get('id');
+            $this->message        = $this->payload->get('message');
+            $this->messageid      = $this->message['id'];
         }
     }
 
@@ -105,8 +105,8 @@ class LINEDriver extends Driver
     public function matchesRequest()
     {
         // This method detects if the incoming HTTP request should be handled with this driver class.
-        if($this->event == "join" || $this->message->get('type') == 'text' 
-            || $this->message->get('type') == 'location') {
+        if($this->event == "join" || $this->message['type'] == 'text' 
+            || $this->message['type'] == 'location') {
             return true;
         }
 
@@ -121,17 +121,17 @@ class LINEDriver extends Driver
     public function getMessages()
     {
         // Return the message(s) that are inside the incoming request.
-        if($this->source->get('type') == 'group') {
-            $recipientId = $this->source->get('groupId');
+        if($this->source['type'] == 'group') {
+            $recipientId = $this->source['groupId'];
         }
-        else if($this->source->get('type') == 'room') {
-            $recipientId = $this->source->get('roomId');
+        else if($this->source['type'] == 'room') {
+            $recipientId = $this->source['roomId'];
         }
         else {
             $recipientId = $this->userId;
         }
-        $message = new Message($this->message->get('text'), $this->userId, $recipientId);
-        $message->addExtras("source", $this->source->get('type'));
+        $message = new Message(strtolower($this->message['text']), $this->userId, $recipientId);
+        $message->addExtras("source", $this->source['type']);
         return [$message];
     }
 
@@ -231,12 +231,12 @@ class LINEDriver extends Driver
     public function leaveChat()
     {
         $url = '';
-        if($this->source->get('type') == "group") {
-             $groupId = $this->source->get('groupId');
+        if($this->source['type'] == "group") {
+             $groupId = $this->source['groupId'];
              $url = 'https://api.line.me/v2/bot/group/'.$groupId.'/leave';
         }
-        else if($this->source->get('type') == "room") {
-            $roomId = $this->source->get('roomId');
+        else if($this->source['type'] == "room") {
+            $roomId = $this->source['roomId'];
              $url = 'https://api.line.me/v2/bot/group/'.$roomId.'/leave';
         }
        
