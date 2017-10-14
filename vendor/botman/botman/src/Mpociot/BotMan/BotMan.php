@@ -366,6 +366,7 @@ class BotMan
                     }
                     $this->matches = $parameters;
                     array_unshift($parameters, $this);
+                    error_log("driver : ".json_encode($this->getDriver()));
                     $parameters = $this->addDataParameters($message, $parameters);
                     call_user_func_array($callback, $parameters);
                 }
@@ -493,7 +494,7 @@ class BotMan
     {
         error_log("reply in Botman");
         error_log("message : ".json_encode($message));
-        error_log("Driver : ".json_encode($this->getDriver()));
+        error_log("Driver : ".json_encode($this->driver));
         $this->getDriver()->reply($message, $this->message, $additionalParameters);
 
         //return $this;
