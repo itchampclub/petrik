@@ -366,9 +366,7 @@ class BotMan
                     }
                     $this->matches = $parameters;
                     array_unshift($parameters, $this);
-
                     $parameters = $this->addDataParameters($message, $parameters);
-                    error_log("parameters : ".json_encode($parameters));
                     call_user_func_array($callback, $parameters);
                 }
             }
@@ -493,6 +491,8 @@ class BotMan
      */
     public function reply($message, $additionalParameters = [])
     {
+        error_log("reply in Botman");
+        error_log("message : ".json_encode($message));
         $this->getDriver()->reply($message, $this->message, $additionalParameters);
 
         return $this;
