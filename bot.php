@@ -6,6 +6,7 @@ require_once('./GooglePlace.php');
 
 use vendor\botman\botman\src\Mpociot\BotMan\BotManFactory;
 use vendor\botman\botman\src\Mpociot\BotMan\BotMan;
+use vendor\botman\botman\src\Mpociot\BotMan\DriverManager;
 
 $config = [
     'channelAccessToken' => 'LYuQSwsxigKYSql4Ad3VdLsoCjmPbplcKJiT5XIDTeCdFxVGO0lC9uvGFcnmOEpc+Ams035JZ/+PfReMjlTYSidnX+GvrLH3T1QqRx/R4CxNU4EBw3uD+0iR98IvmyU9Udl8hge9HAPn/UpeYumQwwdB04t89/1O/w1cDnyilFU=',
