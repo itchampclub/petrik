@@ -120,6 +120,7 @@ class LINEDriver extends Driver
      */
     public function getMessages()
     {
+        error_log("getMessages");
         // Return the message(s) that are inside the incoming request.
         if($this->source['type'] == 'group') {
             $recipientId = $this->source['groupId'];
@@ -130,7 +131,9 @@ class LINEDriver extends Driver
         else {
             $recipientId = $this->userId;
         }
-        $message = new Message(strtolower($this->message['text']), $this->userId, $recipientId);
+        $messageString = strtolower($this->message['text']);
+        error_log("message : ".$messageString);
+        $message = new Message($messageString, $this->userId, $recipientId);
         $message->addExtras("source", $this->source['type']);
         return [$message];
     }

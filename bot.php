@@ -52,7 +52,7 @@ $botman->hears('test 123',  function(BotMan $bot) {
 
 })->driver(LINEDriver::class);
 
-$botman->hears('(/kids jaman now/)',  function(BotMan $bot) {
+$botman->hears('kids jaman now',  function($bot) {
 	error_log("abc");
     $replyText = 'Wahh, gw ketahuan';
 	$reply = array(
