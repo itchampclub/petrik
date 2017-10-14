@@ -493,9 +493,10 @@ class BotMan
     {
         error_log("reply in Botman");
         error_log("message : ".json_encode($message));
+        error_log("Driver : ".json_encode($this->getDriver()));
         $this->getDriver()->reply($message, $this->message, $additionalParameters);
 
-        return $this;
+        //return $this;
     }
 
     /**
