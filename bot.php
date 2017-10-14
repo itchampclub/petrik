@@ -34,8 +34,8 @@ $cryptoPattern = '/'.'info harga crypto (...)+'.'/';
 $wnzPattern = '/'.'^apakah (erwin|erwinwnz|win|winz|winzz|wnz)'.'/';
 $eatPlacePattern = '/'.'(makan dimana|makan di mana)'.'/';
 $placeRecommendationPattern = '/'.'rekomendasi tempat'.'/';
-$salamPattern ='/'.'(selamat)? (pagi|siang|sore|malam) (pet|petrik)'.'/';
-$greetingPattern = '/'.'(good)? (morning|afternoon|evening|night) (pet|petrik)'.'/';
+$salamPattern ='/'.'(selamat)?( )?(pagi|siang|sore|malam) (pet|petrik)'.'/';
+$greetingPattern = '/'.'(good)?( )?(morning|afternoon|evening|night) (pet|petrik)'.'/';
 
 if($type == 'join') {
 	$replyText = 'Halo, kenalin gw Petrik, teman nya Kerang Ajaib'.chr(10);
