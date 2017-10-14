@@ -350,7 +350,7 @@ else if($message['type']=='text')
 		
 		
 	}
-	else if(preg_match($greetingPattern, $incomingMsg) {
+	else if(preg_match($greetingPattern, $incomingMsg)) {
 				
 			$currentHour = date('H');
 			
