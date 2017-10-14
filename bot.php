@@ -38,7 +38,8 @@ $botman->on('join',  function($payload, $bot) {
 
 })->driver(LINEDriver::class);
 */
-$botman->hears('test 123',  function(BotMan $bot) {
+$botman->hears('test 123',  function($bot) {
+	error_log("123");
     $replyText = 'test 123';
 	$reply = array(
 				array(
@@ -68,7 +69,7 @@ $botman->hears('kids jaman now',  function($bot) {
 })->driver(LINEDriver::class);
 
 
-$botman->hears('(/^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)/)',  function(BotMan $bot) {
+$botman->hears('(/^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)/)',  function($bot) {
     $userData = $bot->getUser();
 
     $replyText = "Hi ".$userData->getFirstName();
