@@ -38,7 +38,7 @@ $botman->on('join',  function($payload, $bot) {
 })->driver(LINEDriver::class);
 */
 
-$botman->hear('(/kids jaman now/)',  function($bot) {
+$botman->hears('(/kids jaman now/)',  function($bot) {
     $replyText = 'Wahh, gw ketahuan';
 	$reply = array(
 				array(
@@ -52,7 +52,7 @@ $botman->hear('(/kids jaman now/)',  function($bot) {
 
 })->driver(LINEDriver::class);
 
-$botman->hear('(/^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)/)',  function($bot) {
+$botman->hears('(/^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)/)',  function($bot) {
     $userData = $bot->getUser();
 
     $replyText = "Hi ".$userData->getFirstName();
@@ -67,7 +67,7 @@ $botman->hear('(/^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)/)',  funct
 
 })->driver(LINEDriver::class);
 
-$botman->hear('(/nilai tukar {from} ke {to}/)',  function($bot, $from, $to) {
+$botman->hears('(/nilai tukar {from} ke {to}/)',  function($bot, $from, $to) {
     $currency   = new CurrencyExchange();
 	if($currency->checkCurrencyID($from) && $currency->checkCurrencyID($to)){
 		$currencyPrice = $currency->getCurrencyInfo($from, $to);
@@ -88,7 +88,7 @@ $botman->hear('(/nilai tukar {from} ke {to}/)',  function($bot, $from, $to) {
 
 })->driver(LINEDriver::class);
 
-$botman->hear('(/info harga crypto {crypto}/)',  function($bot, $crypto) {
+$botman->hears('(/info harga crypto {crypto}/)',  function($bot, $crypto) {
     $crypto = new Crypto();
 
     if($crypto->checkCryptoId($cryptoId)){
@@ -111,7 +111,7 @@ $botman->hear('(/info harga crypto {crypto}/)',  function($bot, $crypto) {
 
 })->driver(LINEDriver::class);
 
-$botman->hear('(/^apakah {string}/)',  function($bot, $string) {
+$botman->hears('(/^apakah {string}/)',  function($bot, $string) {
     
     if(strpos($string, "erwin") !== false || strpos($string, "erwinwnz") !== false 
     	|| strpos($string, "wnz") !== false || strpos($string, "winz") !== false 
@@ -134,7 +134,7 @@ $botman->hear('(/^apakah {string}/)',  function($bot, $string) {
 
 })->driver(LINEDriver::class);
 
-$botman->hear('(/(makan dimana|makan di mana)/)',  function($bot, $string) {
+$botman->hears('(/(makan dimana|makan di mana)/)',  function($bot, $string) {
     
     $zomato = new Zomato();
 	$result = $zomato->getRandomPlaces();
@@ -174,7 +174,7 @@ $botman->hear('(/(makan dimana|makan di mana)/)',  function($bot, $string) {
 
 })->driver(LINEDriver::class);
 
-$botman->hear('(/rekomendasi tempat/)',  function($bot) {
+$botman->hears('(/rekomendasi tempat/)',  function($bot) {
     
     $query = substr($incomingMsg, strrpos($incomingMsg, "rekomendasi ")+12);
 	if(strpos($query,",") !== false) {
@@ -221,7 +221,7 @@ $botman->hear('(/rekomendasi tempat/)',  function($bot) {
 })->driver(LINEDriver::class);
 
 
-$botman->hear('(/^(selamat)? (pagi|siang|sore|malam) (pet|petrik)/)',  function($bot) {
+$botman->hears('(/^(selamat)? (pagi|siang|sore|malam) (pet|petrik)/)',  function($bot) {
     $userData = $bot->getUser();
     $currentHour = date('H');
 	
@@ -250,7 +250,7 @@ $botman->hear('(/^(selamat)? (pagi|siang|sore|malam) (pet|petrik)/)',  function(
 
 })->driver(LINEDriver::class);
 
-$botman->hear('(/^(good)? (morning|afternoon|evening|night) (pet|petrik)/)',  function($bot) {
+$botman->hears('(/^(good)? (morning|afternoon|evening|night) (pet|petrik)/)',  function($bot) {
     $userData = $bot->getUser();
     $currentHour = date('H');
 	
@@ -279,7 +279,7 @@ $botman->hear('(/^(good)? (morning|afternoon|evening|night) (pet|petrik)/)',  fu
 
 })->driver(LINEDriver::class);
 
-$botman->hear('(/^(siapa)? (..)?(nyipta|cipta|buat|develop|creator)(..)? (pet|petrik)/)',  function($bot) {
+$botman->hears('(/^(siapa)? (..)?(nyipta|cipta|buat|develop|creator)(..)? (pet|petrik)/)',  function($bot) {
    
     $replyText = "@erwinwnz";
 	$reply = array(
