@@ -21,6 +21,7 @@ DriverManager::loadDriver(LINEDriver::class);
 // create an instance
 $botman = BotManFactory::create($config);
 
+/*
 $botman->on('join',  function($payload, $bot) {
     $replyText = 'Halo, kenalin gw Petrik, teman nya Kerang Ajaib'.chr(10);
 	$replyText .= chr(10).'Gw bisa bantu kalian nentuin tempat makan jika kalian bingung, maupun memberitahu nilai tuker mata uang (baik valas maupun crypto currency) loh..'.chr(10);
@@ -35,6 +36,7 @@ $botman->on('join',  function($payload, $bot) {
 	$bot->reply($reply);
 
 })->driver(LINEDriver::class);
+*/
 
 $botman->hear('(/kids jaman now/)',  function($bot) {
     $replyText = 'Wahh, gw ketahuan';
