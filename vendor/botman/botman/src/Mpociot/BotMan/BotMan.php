@@ -233,7 +233,6 @@ class BotMan
         $command->applyGroupAttributes($this->groupAttributes);
 
         $this->listenTo[] = $command;
-        error_log("command : ".json_encode($command));
         return $command;
     }
 
@@ -374,7 +373,6 @@ class BotMan
             }
         }
         if ($heardMessage === false && ! $this->isBot() && is_callable($this->fallbackMessage) && $this->loadedConversation === false) {
-            error_log('botman debug 2');
             $this->message = $this->getMessages()[0];
             call_user_func($this->fallbackMessage, $this);
         }
@@ -394,11 +392,12 @@ class BotMan
 
         $messageText = $message->getMessage();
         $answerText = $this->getConversationAnswer()->getValue();
-
+        error_log("messageText = ".$messageText);
         $pattern = str_replace('/', '\/', $pattern);
+        error_log("pattern = ".$pattern);
         $text = '/^'.preg_replace(self::PARAM_NAME_REGEX, '(.*)', $pattern).'$/iu';
         $regexMatched = (bool) preg_match($text, $messageText, $matches) || (bool) preg_match($text, $answerText, $matches);
-
+        error_log("regexMatched = ".$regexMatched);
         // Try middleware first
         $mergedMiddleware = array_merge($this->middleware, $messageMiddleware);
         if (count($mergedMiddleware)) {
