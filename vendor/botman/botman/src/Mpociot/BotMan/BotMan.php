@@ -351,13 +351,13 @@ class BotMan
                 error_log("isMessageMatching :".$this->isMessageMatching($message, $pattern, $matches, $messageData['middleware']));
                 error_log("validDriver : ".$this->isDriverValid($this->driver->getName(), $messageData['driver']));
                 error_log("validChannel : ".$this->isChannelValid($message->getChannel(), $messageData['channel']));
-                error_log("loadedConversation : ".$this->loadedConversation === false);
-                
+                error_log("loadedConversation : ".!$this->loadedConversation);
+
                 if (! $this->isBot() &&
                     $this->isMessageMatching($message, $pattern, $matches, $messageData['middleware']) &&
                     $this->isDriverValid($this->driver->getName(), $messageData['driver']) &&
                     $this->isChannelValid($message->getChannel(), $messageData['channel']) &&
-                    $this->loadedConversation === false
+                    !$this->loadedConversation
                 ) {
                     error_log('botman debug 1');
                     $this->message = $message;
