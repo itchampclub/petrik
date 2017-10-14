@@ -1,1 +1,5 @@
-{}
+{
+    "require": {
+        "botman/botman": "^1.5"
+    }
+}
