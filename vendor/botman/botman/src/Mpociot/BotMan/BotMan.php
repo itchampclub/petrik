@@ -334,6 +334,7 @@ class BotMan
             $messageData = $command->toArray();
             $pattern = $messageData['pattern'];
             $callback = $messageData['callback'];
+            error_log("messageData : ".json_encode($messageData));
 
             if (! $callback instanceof Closure) {
                 if (strpos($callback, '@') === false) {
@@ -393,17 +394,16 @@ class BotMan
      */
     protected function isMessageMatching(Message $message, $pattern, &$matches, $messageMiddleware = [])
     {
-        error_log("matching message..");
         $matches = [];
 
         $messageText = $message->getMessage();
         $answerText = $this->getConversationAnswer()->getValue();
-        error_log("messageText = ".$messageText);
+       
         $pattern = str_replace('/', '\/', $pattern);
-        error_log("pattern = ".$pattern);
+       
         $text = '/^'.preg_replace(self::PARAM_NAME_REGEX, '(.*)', $pattern).'$/iu';
         $regexMatched = (bool) preg_match($text, $messageText, $matches) || (bool) preg_match($text, $answerText, $matches);
-        error_log("regexMatched = ".$regexMatched);
+       
         // Try middleware first
         $mergedMiddleware = array_merge($this->middleware, $messageMiddleware);
         if (count($mergedMiddleware)) {
@@ -535,6 +535,8 @@ class BotMan
      */
     protected function isDriverValid($driverName, $allowedDrivers)
     {
+        error_log("driverName : ".$driverName);
+        error_log("isNull allowedDrivers : ". ! is_null($allowedDrivers));
         if (! is_null($allowedDrivers)) {
             return Collection::make($allowedDrivers)->contains($driverName);
         }
