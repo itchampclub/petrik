@@ -27,6 +27,9 @@ $googleMapUrl	= "https://www.google.com/maps/search/?api=1&query=";
 
 $yesNoList = array("Iya", "Nggak");
 
+
+$helloPattern = '/'.'^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)'.'/';
+
 if($type == 'join') {
 	$replyText = 'Halo, kenalin gw Petrik, teman nya Kerang Ajaib'.chr(10);
 	$replyText .= chr(10).'Gw bisa bantu kalian nentuin tempat makan jika kalian bingung, maupun memberitahu nilai tuker mata uang (baik valas maupun crypto currency) loh..'.chr(10);
@@ -62,7 +65,6 @@ else if($message['type']=='text')
 		$leave = true;
 
 	}
-	$helloPattern = '/'.'^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)'.'/';
 	else if(preg_match($helloPattern, $incomingMsg))
 	{
 
