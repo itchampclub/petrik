@@ -347,6 +347,12 @@ class BotMan
                 $message = $this->applyMiddleware($message, $this->middleware);
                 $message = $this->applyMiddleware($message, $messageData['middleware']);
 
+                error_log("isBotFalse :".!$this->isBot());
+                error_log("isMessageMatching :".$this->isMessageMatching($message, $pattern, $matches, $messageData['middleware']));
+                error_log("validDriver : ".$this->isDriverValid($this->driver->getName(), $messageData['driver']));
+                error_log("validChannel : ".$this->isChannelValid($message->getChannel(), $messageData['channel']));
+                error_log("loadedConversation : ".$this->loadedConversation === false);
+                
                 if (! $this->isBot() &&
                     $this->isMessageMatching($message, $pattern, $matches, $messageData['middleware']) &&
                     $this->isDriverValid($this->driver->getName(), $messageData['driver']) &&
