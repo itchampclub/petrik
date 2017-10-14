@@ -79,6 +79,7 @@ class LINEDriver extends Driver
         
         if(isset($data['events'][0]) && !empty($data['events'][0])) {
             $this->payload  = Collection::make((array) $data['events'][0]);
+            error_log($this->payload);
             $this->event    = $this->payload->get('type'); 
             $source         = $this->payload->get('source');
             $userId         = $this->source->get('userId');
