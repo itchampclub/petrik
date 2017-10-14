@@ -59,6 +59,7 @@ class LINEDriver extends Driver
             exit();
         }
         $entityBody = $request->getContent();
+
         if (strlen($entityBody) === 0) {
             http_response_code(400);
             error_log("Missing request body");
@@ -90,8 +91,10 @@ class LINEDriver extends Driver
 
     private function sign($body)
     {
+        error_log("entityBody :".json_encode($body));
         $hash = hash_hmac('sha256', $body, $this->config->get('channelSecret'), true);
         $signature = base64_encode($hash);
+        error_log("signature :".$signature);
         return $signature;
     }
 
