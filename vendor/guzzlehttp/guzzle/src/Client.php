@@ -110,6 +110,7 @@ class Client implements ClientInterface
 
     public function requestAsync($method, $uri = '', array $options = [])
     {
+        error_log("entering request async");
         $options = $this->prepareDefaults($options);
         // Remove request modifying parameter because it can be done up-front.
         $headers = isset($options['headers']) ? $options['headers'] : [];
@@ -123,7 +124,7 @@ class Client implements ClientInterface
         $request = new Psr7\Request($method, $uri, $headers, $body, $version);
         // Remove the option so that they are not doubly-applied.
         unset($options['headers'], $options['body'], $options['version']);
-
+        error_log("request: ".json_encode($request));
         return $this->transfer($request, $options);
     }
 
@@ -261,6 +262,7 @@ class Client implements ClientInterface
      */
     private function transfer(RequestInterface $request, array $options)
     {
+        error_log("entering transfer");
         // save_to -> sink
         if (isset($options['save_to'])) {
             $options['sink'] = $options['save_to'];
