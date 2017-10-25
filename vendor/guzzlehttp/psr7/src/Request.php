@@ -52,6 +52,7 @@ class Request implements RequestInterface
         if ($body !== '' && $body !== null) {
             $this->stream = stream_for($body);
         }
+        error_log("request created, with method : ".$this->method." uri : ".$this->uri." headers : ".$this->headers." protocol : ".$this->protocol);
     }
 
     public function getRequestTarget()
