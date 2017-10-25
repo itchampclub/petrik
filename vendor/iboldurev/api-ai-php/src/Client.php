@@ -199,6 +199,7 @@ class Client
      */
     private function validateResponse(ResponseInterface $response)
     {
+        error_log("status code : ".$response->getStatusCode());
         if ($response->getStatusCode() !== 200) {
             $message = empty($response->getReasonPhrase()) ? 'Bad response status code' : $response->getReasonPhrase();
             throw new BadResponseException($message, $response);
@@ -225,11 +226,19 @@ class Client
      */
     private function getDefaultHeaders()
     {
+         $header = array(
+            "Content-Type: application/json",
+            'Authorization: Bearer '.$this->accessToken,
+            'api-request-source:' .self::DEFAULT_API_SOURCE,
+        );
+         return $headers;
+         /*
         return [
-            'Content-Type' => 'application/json; charset=utf-8',
+            'Content-Type' => 'application/json',
             'Authorization' => 'Bearer ' . $this->accessToken,
             'api-request-source' => self::DEFAULT_API_SOURCE,
         ];
+        */
     }
 
 }
