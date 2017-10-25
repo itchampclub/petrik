@@ -231,7 +231,7 @@ class Client
             'Authorization: Bearer '.$this->accessToken,
             'api-request-source:' .self::DEFAULT_API_SOURCE,
         );
-         return $headers;
+         return $header;
          /*
         return [
             'Content-Type' => 'application/json',
