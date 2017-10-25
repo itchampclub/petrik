@@ -279,8 +279,10 @@ class Client implements ClientInterface
         $handler = $options['handler'];
 
         try {
+            error_log("is about calling promise");
             return Promise\promise_for($handler($request, $options));
         } catch (\Exception $e) {
+            error_log("error in calling promise");
             return Promise\rejection_for($e);
         }
     }
