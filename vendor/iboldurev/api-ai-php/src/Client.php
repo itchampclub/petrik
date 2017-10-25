@@ -17,12 +17,12 @@ class Client
     /**
      * API Base url
      */
-    const API_BASE_URI = 'https://api.api.ai/';
+    const API_BASE_URI = 'https://api.dialogflow.com/';
 
     /**
      * API Version
      */
-    const DEFAULT_API_VERSION = '20150910';
+    const DEFAULT_API_VERSION = '20170712';
 
     /**
      * API Endpoint
@@ -92,6 +92,7 @@ class Client
         $this->apiLanguage = $apiLanguage;
         $this->apiVersion = $apiVersion;
         $this->client = $httpClient ?: $this->defaultHttpClient();
+        error_log("dialogflow client created");
     }
 
     /**
