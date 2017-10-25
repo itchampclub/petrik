@@ -93,7 +93,7 @@ class Client implements ClientInterface
     {
         // Merge the base URI into the request URI if needed.
         $options = $this->prepareDefaults($options);
-
+        error_log(json_encode($request));
         return $this->transfer(
             $request->withUri($this->buildUri($request->getUri(), $options), $request->hasHeader('Host')),
             $options
