@@ -38,6 +38,7 @@ class GuzzleHttpClient implements HttpClient
      */
     public function send($method, $uri, $body = null, array $query = [], array $headers = [], array $options = [])
     {
+        error_log("enter client send");
         $options = array_merge($options, [
             RequestOptions::QUERY => $query,
             RequestOptions::HEADERS => $headers,
@@ -48,7 +49,7 @@ class GuzzleHttpClient implements HttpClient
         } else {
             $options[RequestOptions::BODY] = $body;
         }
-
+        error_log("options : ".json_encode($options));
         return $this->guzzleClient->request($method, $uri, $options);
     }
 
