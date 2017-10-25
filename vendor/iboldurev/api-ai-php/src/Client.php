@@ -172,12 +172,13 @@ class Client
         $this->validateMethod($method);
 
         $query = array_merge($this->getDefaultQuery(), $query);
+        error_log(json_encode($query));
         $headers = array_merge($this->getDefaultHeaders(), $headers);
-
+        error_log(json_encode($headers));
         $this->lastResponse = $this->client->send($method, $uri, $body, $query, $headers, $options);
 
         $this->validateResponse($this->lastResponse);
-
+        error_log(json_encode($this->lastResponse));
         return $this->lastResponse;
     }
 
