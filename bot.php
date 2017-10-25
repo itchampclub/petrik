@@ -6,8 +6,14 @@ require_once('./CurrencyExchange.php');
 require_once('./Zomato.php');
 require_once('./GooglePlace.php');
 
+require_once __DIR__.'/vendor/autoload.php';
+use ApiAi\Client as DialogFlowClient;
+
 $channelAccessToken = 'LYuQSwsxigKYSql4Ad3VdLsoCjmPbplcKJiT5XIDTeCdFxVGO0lC9uvGFcnmOEpc+Ams035JZ/+PfReMjlTYSidnX+GvrLH3T1QqRx/R4CxNU4EBw3uD+0iR98IvmyU9Udl8hge9HAPn/UpeYumQwwdB04t89/1O/w1cDnyilFU=';
 $channelSecret = '03371616390b4cb96139412c5ce45d53';
+
+$dialogFlowClientToken = '5fa58628d640435ab640d991c011360f';
+
 date_default_timezone_set('Asia/Jakarta');
 
 $client 		= new LINEBotTiny($channelAccessToken, $channelSecret);
@@ -57,6 +63,7 @@ else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
 
+	
 	if(strpos($incomingMsg,"kids jaman now") !== false)
 	{
 		$replyText = 'Wahh, gw ketahuan';
@@ -72,6 +79,42 @@ else if($message['type']=='text')
 		$leave = true;
 
 	}
+	else if(strpos($incomingMsg,"apakah ") !== false)
+	{
+		
+		if(preg_match($wnzPattern,$incomingMsg)) {
+			$replyText = 'All hail @erwinwnz';
+		}
+		else {
+			$replyText = $yesNoList[array_rand($yesNoList,1)];
+		}
+		
+		$reply = array(
+								'replyToken' => $replyToken,														
+								'messages' => array(
+									array(
+											'type' => 'text',					
+											'text' => $replyText
+										)
+								)
+							);
+
+	}
+	else {
+		try {
+		    $dialogFlowClient = new DialogFlowClient($dialogFlowClientToken);
+
+		    $query = $dialogFlowClient->get('query', [
+		        'query' => $incomingMsg,
+		    ]);
+
+		    $response = json_decode((string) $query->getBody(), true);
+		    error_log($response);
+		} catch (\Exception $error) {
+		    echo $error->getMessage();
+		}
+	}
+	/*
 	else if(preg_match($helloPattern, $incomingMsg))
 	{
 
@@ -392,7 +435,7 @@ else if($message['type']=='text')
 									)
 								);
 		
-		
+	*/	
 }
 else if($message['type']=='location') {
 	$lat = $message['latitude'];
