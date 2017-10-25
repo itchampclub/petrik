@@ -227,7 +227,7 @@ class Client
     private function getDefaultHeaders()
     {
          $header = array(
-            "Content-Type: application/json",
+            "Content-Type: application"."/"."json",
             'Authorization: Bearer '.$this->accessToken,
             'api-request-source:' .self::DEFAULT_API_SOURCE,
         );
