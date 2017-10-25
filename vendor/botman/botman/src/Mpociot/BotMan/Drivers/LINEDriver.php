@@ -210,13 +210,14 @@ class LINEDriver extends Driver
     {
     	// Send a reply to the messaging service.
     	// Replies can either be strings, Question objects or IncomingMessage objects.
-        
+        error_log("message in LINEDriver reply : ".json_encode($message));
         $header = $this->generateHeader();
         
         $additionalParameters = array(
                                 'replyToken' => $this->replyToken,
                                 'messages' => $message
                                 );
+        error_log("additionalParameters in LINEDriver reply : ".json_encode($additionalParameters));
         $this->http->post('https://api.line.me/v2/bot/message/reply', [], $additionalParameters, $header);
     }
 
