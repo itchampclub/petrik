@@ -91,9 +91,10 @@ class Client implements ClientInterface
 
     public function sendAsync(RequestInterface $request, array $options = [])
     {
+        error_log("sending async");
         // Merge the base URI into the request URI if needed.
         $options = $this->prepareDefaults($options);
-        error_log(json_encode($request));
+
         return $this->transfer(
             $request->withUri($this->buildUri($request->getUri(), $options), $request->hasHeader('Host')),
             $options
@@ -102,6 +103,7 @@ class Client implements ClientInterface
 
     public function send(RequestInterface $request, array $options = [])
     {
+        error_log("sending");
         $options[RequestOptions::SYNCHRONOUS] = true;
         return $this->sendAsync($request, $options)->wait();
     }
