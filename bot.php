@@ -106,6 +106,7 @@ else if($message['type']=='text')
 		    error_log("enter dialogFlowClient");
 		    $query = $dialogFlowClient->get('query', [
 		        'query' => $incomingMsg,
+		        'sessionId' => $messageid
 		    ]);
 		    error_log("query result : ".json_encode($query));
 		    $response = json_decode((string) $query->getBody(), true);
