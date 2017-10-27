@@ -58,7 +58,7 @@ $botman->hears('query',  function($bot) {
 	$bot->reply($reply);
 	$bot->leaveChat();
 
-})->middleware($dialogFlow->listenForAction());
+})->middleware($dialogFlow->listenForAction())->driver(LINEDriver::class);
 /*
 $botman->hears('kids jaman now',  function($bot) {
 	error_log("abc");
