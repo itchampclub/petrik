@@ -10,11 +10,16 @@ use Mpociot\BotMan\BotMan;
 use Mpociot\BotMan\DriverManager;
 use Mpociot\BotMan\Drivers\LINEDriver;
 use BotMan\BotMan\Messages\Attachments\Location;
+use Mpociot\BotMan\Middleware\ApiAi;
 
 $config = [
     'channelAccessToken' => 'LYuQSwsxigKYSql4Ad3VdLsoCjmPbplcKJiT5XIDTeCdFxVGO0lC9uvGFcnmOEpc+Ams035JZ/+PfReMjlTYSidnX+GvrLH3T1QqRx/R4CxNU4EBw3uD+0iR98IvmyU9Udl8hge9HAPn/UpeYumQwwdB04t89/1O/w1cDnyilFU=',
 	'channelSecret' => '03371616390b4cb96139412c5ce45d53'
 ];
+
+$dialogFlowClientAccessToken = '5fa58628d640435ab640d991c011360f';
+$dialogFlow = ApiAi::create($dialogFlowClientAccessToken);
+
 date_default_timezone_set('Asia/Jakarta');
 $yesNoList = array("Iya", "Nggak");
 
@@ -49,10 +54,11 @@ $botman->hears('test 123',  function($bot) {
 				)
 		);
 
+	error_log("dialogFlow message : ".json_encode($bot->getMessage()));
 	$bot->reply($reply);
 	$bot->leaveChat();
 
-})->driver(LINEDriver::class);
+})->middleware($dialogFlow->listenForAction());
 
 $botman->hears('kids jaman now',  function($bot) {
 	error_log("abc");
