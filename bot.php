@@ -44,7 +44,7 @@ $botman->on('join',  function($payload, $bot) {
 
 })->driver(LINEDriver::class);
 */
-$botman->hears('test 123',  function($bot) {
+$botman->hears('query',  function($bot) {
 	error_log("123");
     $replyText = 'test 123';
 	$reply = array(
@@ -59,7 +59,7 @@ $botman->hears('test 123',  function($bot) {
 	$bot->leaveChat();
 
 })->middleware($dialogFlow->listenForAction());
-
+/*
 $botman->hears('kids jaman now',  function($bot) {
 	error_log("abc");
     $replyText = 'Wahh, gw ketahuan';
@@ -365,6 +365,7 @@ $botman->receivesLocation(function(BotMan $bot, Location $location) {
 
 	$bot->reply($reply);
 })->driver(LINEDriver::class);
+*/
 
 $botman->listen();
 
