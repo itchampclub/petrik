@@ -7,12 +7,15 @@ class Crypto {
         $this->cryptoList = array(
         	"btc",
         	"bch",
+            "btg",
         	"eth",
         	"etc",
         	"ltc",
         	"waves",
         	"xrp",
-        	"xzc"
+        	"xzc",
+            "nxt",
+            "xlm"
         	);
     }
 
