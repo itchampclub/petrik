@@ -42,6 +42,9 @@ class Crypto {
     }
 
     public function getCryptoInfo($cryptoId) {
+        if($cryptoId == "xlm")
+            $cryptoId = "str";
+        
     	$fullUrl = $this->urlPrefix.$cryptoId.'_idr/'.$this->urlSuffix;
     	 return json_decode($this->exec_get($fullUrl), true);
     }
