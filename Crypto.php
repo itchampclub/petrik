@@ -59,6 +59,7 @@ class Crypto {
     }
 
     public function generateIDRString($price) {
+        echo $price;
     	$separator = '.';
     	$result = '';
     	$count = 0;
