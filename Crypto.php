@@ -15,7 +15,8 @@ class Crypto {
         	"xrp",
         	"xzc",
             "nxt",
-            "xlm"
+            "xlm",
+            "ignis"
         	);
     }
 
