@@ -18,12 +18,6 @@ $message 		= $event['message'];
 $messageid 		= $message['id'];
 
 
-$yesNoList = array("Iya", "Nggak");
-
-
-$helloPattern = '/'.'^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)'.'/';
-$wnzPattern = '/'.'^apakah (erwin|erwinwnz|win|winz|winzz|wnz)'.'/';
-$salamPattern ='/'.'(selamat)?( )?(pagi|siang|sore|malam) (pet|petrik)'.'/';
 
 if($type == 'memberJoined') 
 {
@@ -79,7 +73,10 @@ else if($message['type']=='text')
 }	
 }	
 
-	else if(preg_match($helloPattern, $incomingMsg))
+else if($message['type']=='text')
+{
+	$incomingMsg = strtolower($message['text']);
+	if(strpos($incomingMsg,"hi") !== false)
 {
 
 		$userData = null;
@@ -96,6 +93,7 @@ else if($message['type']=='text')
 			$userData = $client->profil($userId);
 }
 		
+		
 		if($userData != null) 
 {
 			$replyText = "Hi ".$userData['groupId'];
@@ -110,8 +108,7 @@ else if($message['type']=='text')
 						);
 }			
 }
-
-
+}
 
 if($reply != "") {
 				
