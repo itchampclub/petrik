@@ -63,8 +63,8 @@ else if($message['type']=='text')
 								)
 							);
 		$leave = true;
-
-	}
+}
+	
 else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
@@ -81,7 +81,8 @@ else if($message['type']=='text')
 								)
 							);
 
-	}
+	
+}
 	
 	
 	else if(preg_match($helloPattern, $incomingMsg))
@@ -125,52 +126,6 @@ else if($message['type']=='text')
 			
 		
 	}
-	
-	else if(preg_match($salamPattern, $incomingMsg)) {
-			
-			$currentHour = date('H');
-			
-			if($currentHour > 3 && $currentHour <= 11) {
-				$replyText = "selamat pagi ";
-			}
-			else if($currentHour > 12 && $currentHour <= 15) {
-				$replyText = "selamat siang ";
-			}
-			else if($currentHour > 15 && $currentHour <= 17) {
-				$replyText = "selamat sore ";
-			}
-			else {
-				$replyText = "selamat malam ";
-			}
-
-			$userData = null;
-			if($source['type'] == "group") {
-				$userData = $client->getProfilFromGroup($userId, $source['groupId']);
-			}
-			else if($source['type'] == "room") {
-				$userData = $client->getProfilFromRoom($userId, $source['roomId']);
-			}
-			else if($source['type'] == "user") {
-				$userData = $client->profil($userId);
-			}
-			
-			if($userData != null) {
-				$replyText .= $userData['displayName'];
-			}
-
-			$reply = array(
-									'replyToken' => $replyToken,														
-									'messages' => array(
-										array(
-												'type' => 'text',					
-												'text' => $replyText
-											)
-									)
-								);
-		
-		
-	}		
-}
 
 
 
