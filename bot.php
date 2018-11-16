@@ -12,7 +12,6 @@ $event 			= $client->parseEvents()[0];
 $type 			= $event['type']; 
 $source     	= $event['source'];
 $userId 		= $source['userId'];
-$AuserId 		= $source['groupId'];
 $replyToken 	= $event['replyToken'];
 $timestamp		= $event['timestamp'];
 $message 		= $event['message'];
@@ -67,13 +66,13 @@ else if($message['type']=='text')
 	$incomingMsg = strtolower($message['text']);
 	if(strpos($incomingMsg,"id") !== false)
 {
-		$replyText = 'บายจ้า';
+		$replyText = "Hi ".$userData['displayName'];
 		$reply = array(
 								'replyToken' => $replyToken,														
 								'messages' => array(
 									array(
 											'type' => 'text',					
-											'text' => $AuserId
+											'text' => $replyText
 										)
 								)
 							);
@@ -99,7 +98,7 @@ else if($message['type']=='text')
 		
 		if($userData != null) 
 {
-			$replyText = "Hi ".$userData['displayName'];
+			$replyText = "Hi ".$userData['groupId'];
 			$reply = array(
 							'replyToken' => $replyToken,														
 							'messages' => array(
