@@ -55,10 +55,10 @@ else if($message['type']=='text')
 							);
 		$leave = true;
         }
-        else if($source['groupId'] == 'Cb968a26fc8ed3eda142403d465d4b2a7')
-	{
-        if(strpos($incomingMsg,"ตารางสอบ") !== false)
-        {
+	else if(strpos($incomingMsg,"ตารางสอบ") !== false)
+		{
+                if($source['groupId'] == 'Cb968a26fc8ed3eda142403d465d4b2a7')
+                {
 		$replyText = 'ตารางสอบวิชา 14215 คือ วันอาทิตย์ ที่ 27 มกราคม 2561 เวลา 13.30-16.30 น.';
 		$reply = array(
 								'replyToken' => $replyToken,														
@@ -69,12 +69,9 @@ else if($message['type']=='text')
 										)
 								)
 							);
-        }
-	}
-	else if($source['groupId'] == 'C465f0f90a6c2efa75434fe4afea31593')
-	{
-        if(strpos($incomingMsg,"ตารางสอบ") !== false)
-        {
+                }
+	       else if($source['groupId'] == 'C465f0f90a6c2efa75434fe4afea31593')
+	        {
 		$replyText = 'ตารางสอบวิชา 14318 คือ วันอาทิตย์ ที่ 27 มกราคม 2561 เวลา 09.00-12.00 น.';
 		$reply = array(
 								'replyToken' => $replyToken,														
@@ -85,8 +82,8 @@ else if($message['type']=='text')
 										)
 								)
 							);
-        }
-	}
+               }
+	       }
 	else if(strpos($incomingMsg,"ทดสอบ") !== false)
 	{
 		$userData = null;
