@@ -44,7 +44,7 @@ else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
 	if(strpos($incomingMsg,"ไล่บอท") !== false)
-{
+        {
 		$replyText = 'บายจ้า';
 		$reply = array(
 								'replyToken' => $replyToken,														
@@ -56,7 +56,7 @@ else if($message['type']=='text')
 								)
 							);
 		$leave = true;
-}
+        }
 
 	else if(preg_match("hi", $incomingMsg))
 	{
@@ -84,6 +84,7 @@ else if($message['type']=='text')
 						);
 		}
 	}
+}
 
 
 if($reply != "") {
