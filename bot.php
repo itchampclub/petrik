@@ -51,10 +51,9 @@ if($type == 'memberJoined') {
 							);
 
 }
-else if(preg_match($incomingMsg))
+else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
-
 	if(strpos($incomingMsg,"ไล่บอท") !== false)
 	{
 		$replyText = 'บายจ้า';
@@ -101,83 +100,6 @@ else if(preg_match($incomingMsg))
 			
 		
 	}
-	else if(preg_match($currencyPattern, $incomingMsg))
-	{
-		$currency   = new CurrencyExchange();
-		$stringAfterCommand = substr($incomingMsg, strrpos($incomingMsg, "nilai tukar ")+12);
-		if($stringAfterCommand != "" ) 
-		{
-		 	if(strpos($stringAfterCommand, " ke ") !== false) {
-				$currencyString = explode(" ke ",$stringAfterCommand);
-				$from = trim(strtoupper($currencyString[0]));
-				$to = trim(strtoupper(explode(" ",$currencyString[1])[0]));
-				
-			}
-			else {
-				$from = "IDR";
-				$to = trim(strtoupper($stringAfterCommand));
-			}
-
-			if($currency->checkCurrencyID($from) && $currency->checkCurrencyID($to)){
-				$currencyPrice = $currency->getCurrencyInfo($from, $to);
-				$replyText = '1 '.$from.' = '.$currency->generateCurrencyValueString($currencyPrice, $to);
-			}
-			else {
-				$replyText = 'maaf, petrik tidak mengenai currency itu :(';
-			}
-		}
-		else {
-			$replyText = 'kurang currencyID nya bosque';
-		}
-
-		$reply = array(
-								'replyToken' => $replyToken,														
-								'messages' => array(
-									array(
-											'type' => 'text',					
-											'text' => $replyText
-										)
-								)
-							);
-
-	}
-	else if(preg_match($cryptoPattern, $incomingMsg))
-	{
-		$crypto 	= new Crypto();
-		$stringAfterCommand = substr($incomingMsg, strrpos($incomingMsg, "info harga crypto ")+18);
-		if($stringAfterCommand != "" ) 
-		{
-		 	if(strpos($stringAfterCommand, " ") === false) {
-				$cryptoId = trim($stringAfterCommand);
-			}
-			else {
-				$cryptoId = trim(substr($stringAfterCommand, 0 , strpos($stringAfterCommand, " ")));
-			}
-
-			if($crypto->checkCryptoId($cryptoId)){
-				$cryptoData = $crypto->getCryptoInfo($cryptoId);
-				$cryptoPrice = $cryptoData['ticker']['last'];
-				$replyText = '1 '.strtoupper($cryptoId).' = '.$crypto->generateIDRString($cryptoPrice);
-			}
-			else {
-				$replyText = 'maaf, petrik tidak mengenai crypto currency itu :(';
-			}
-		}
-		else {
-			$replyText = 'kurang cryptoId nya bosque';
-		}
-
-		$reply = array(
-								'replyToken' => $replyToken,														
-								'messages' => array(
-									array(
-											'type' => 'text',					
-											'text' => $replyText
-										)
-								)
-							);
-	
-	}
 	else if(strpos($incomingMsg,"apakah ") !== false)
 	{
 		
@@ -198,113 +120,6 @@ else if(preg_match($incomingMsg))
 								)
 							);
 
-	}
-	else if(preg_match($eatPlacePattern, $incomingMsg))
-	{
-		
-		$zomato = new Zomato();
-		$result = $zomato->getRandomPlaces();
-
-		if($result != null) {
-			$replyText = 'Mungkin bisa coba '.$result['restaurant']['name'];
-			$restaurantName = strtolower(trim($result['restaurant']['name']));
-
-			$urlPlaces = $googleMapUrl.str_replace(" ","+",$restaurantName);
-			$reply = array(
-									'replyToken' => $replyToken,														
-									'messages' => array(
-										array(
-												'type' => 'text',					
-												'text' => $replyText
-											),
-										array(
-												'type' => 'text',					
-												'text' => $urlPlaces
-											)
-										
-									)
-								);
-					
-			
-		}
-		else {
-			$replyText = "Wahh, Petrik lagi ga ada ide nih :(";
-			$reply = array(
-									'replyToken' => $replyToken,														
-									'messages' => array(
-										array(
-												'type' => 'text',					
-												'text' => $replyText
-											)
-									)
-								);
-					
-			
-		}
-	}
-	else if(preg_match($placeRecommendationPattern, $incomingMsg))
-	{
-		$query = substr($incomingMsg, strrpos($incomingMsg, "rekomendasi ")+12);
-		if(strpos($query,",") !== false) {
-			$query = substr($query, strrpos($query, ",")+1);
-		}
-		$query = trim($query);
-		$query = str_replace(" ", "+", $query);
-
-		$googlePlace = new GooglePlace();
-		$result = $googlePlace->getRandomPlacesByQuery($query);
-
-		if($result != null) {
-			$replyText = 'Mungkin bisa coba '.$result['name'];
-			$restaurantPlaceId = $result['place_id'];
-			$restaurantLoc = $result['geometry']['location'];
-			$urlPlaces = $googleMapUrl.$restaurantLoc['lat'].",".$restaurantLoc['lng']."&query_place_id=".$restaurantPlaceId;
-			$reply = array(
-									'replyToken' => $replyToken,														
-									'messages' => array(
-										array(
-												'type' => 'text',					
-												'text' => $replyText
-											),
-										array(
-												'type' => 'text',					
-												'text' => $urlPlaces
-											)
-										
-									)
-								);
-					
-			
-		}
-		else {
-			$replyText = "Wahh, Petrik lagi ga ada ide nih :(";
-			$reply = array(
-									'replyToken' => $replyToken,														
-									'messages' => array(
-										array(
-												'type' => 'text',					
-												'text' => $replyText
-											)
-									)
-								);
-					
-			
-		}
-				
-	}
-	else if(strpos($incomingMsg,"cipta") !== false || strpos($incomingMsg,"nyipta") !== false || strpos($incomingMsg,"buat") !== false || strpos($incomingMsg,"creator") !== false || strpos($incomingMsg,"develop") !== false) {
-		if(strpos($incomingMsg,"petrik") !== false) {
-			$replyText = '@erwinwnz';
-			$reply = array(
-									'replyToken' => $replyToken,														
-									'messages' => array(
-										array(
-												'type' => 'text',					
-												'text' => $replyText
-											)
-									)
-								);
-		}
 	}
 	else if(preg_match($salamPattern, $incomingMsg)) {
 			
