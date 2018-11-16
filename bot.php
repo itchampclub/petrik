@@ -55,6 +55,16 @@ else if($message['type']=='text')
 	$incomingMsg = strtolower($message['text']);
 	if(strpos($incomingMsg,"bleave") !== false)
         {
+	        $replyText = '';
+		$reply = array(
+								'replyToken' => $replyToken,														
+								'messages' => array(
+									array(
+											'type' => 'text',					
+											'text' => $replyText
+										)
+								)
+							);
 		$leave = true;
         }
 	else if(strpos($incomingMsg,"ตารางสอบ") !== false)
