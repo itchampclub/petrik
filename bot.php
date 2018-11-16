@@ -37,8 +37,7 @@ if($type == 'memberJoined')
 }
 else if($type == 'join') 
 {
-	$replyText = 'ขอรบกวนเวลาสมาชิกกลุ่มเพื่อเก็บข้อมูลสักครู่'.chr(10);
-	$replyText .= chr(10).'ขอบคุณครับ'.chr(10);
+	$replyText = 'ขอรบกวนเวลาสมาชิกกลุ่มสักครู่';
 	
 	$reply = array(
 								'replyToken' => $replyToken,														
@@ -56,16 +55,6 @@ else if($message['type']=='text')
 	$incomingMsg = strtolower($message['text']);
 	if(strpos($incomingMsg,"bleave") !== false)
         {
-		$replyText = 'บอทกำลังออกจากห้อง';
-		$reply = array(
-								'replyToken' => $replyToken,														
-								'messages' => array(
-									array(
-											'type' => 'text',					
-											'text' => $replyText
-										)
-								)
-							);
 		$leave = true;
         }
 	else if(strpos($incomingMsg,"ตารางสอบ") !== false)
