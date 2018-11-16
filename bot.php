@@ -58,7 +58,7 @@ else if($message['type']=='text')
 		$leave = true;
 }
 
-	else if(preg_match($helloPattern, $incomingMsg))
+	else if(preg_match("hi", $incomingMsg))
 	{
 		$userData = null;
 		if($source['type'] == "group") {
