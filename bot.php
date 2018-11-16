@@ -37,7 +37,7 @@ if($type == 'memberJoined')
 }
 else if($type == 'join') 
 {
-	$replyText = 'ขอรบกวนเวลาสมาชิกกลุ่มสักครู่';
+	$replyText = 'Hello';
 	
 	$reply = array(
 								'replyToken' => $replyToken,														
