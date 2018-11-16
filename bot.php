@@ -60,7 +60,7 @@ else if($message['type']=='text')
 	$incomingMsg = strtolower($message['text']);
 	if(strpos($incomingMsg,"id") !== false)
 {
-		$replyText = "Hi ".$userData['displayName'];
+		$replyText = "Hi";
 		$reply = array(
 								'replyToken' => $replyToken,														
 								'messages' => array(
@@ -96,7 +96,7 @@ else if($message['type']=='text')
 		
 		if($userData != null) 
 {
-			$replyText = "Hi ".$userData['groupId'];
+			$replyText = "Hi ".$source['groupId'];
 			$reply = array(
 							'replyToken' => $replyToken,														
 							'messages' => array(
