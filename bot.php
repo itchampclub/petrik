@@ -21,9 +21,8 @@ $messageid 		= $message['id'];
 
 if($type == 'memberJoined') 
 {
-	$replyText = 'สวัสดี'.chr(10);
-	$replyText .= chr(10).'นี่คือข้อความต้อนรับจากบอท'.chr(10);
-	$replyText .= chr(10).'นะจ้ะ';
+	$replyText = 'ยินดีต้อนรับเข้าสู่กลุ่มวิชา'.chr(10);
+	$replyText .= chr(10).'หลักการแปล 14318'.chr(10);
 	
 	$reply = array(
 								'replyToken' => $replyToken,														
@@ -36,14 +35,28 @@ if($type == 'memberJoined')
 							);
 
 }
+else if($type == 'join') 
+{
+	$replyText = 'ขอรบกวนเวลาสมาชิกกลุ่มเพื่อเก็บข้อมูลสักครู่'.chr(10);
+	$replyText .= chr(10).'ขอบคุณครับ'.chr(10);
+	
+	$reply = array(
+								'replyToken' => $replyToken,														
+								'messages' => array(
+									array(
+											'type' => 'text',					
+											'text' => $replyText
+										)
+								)
+							);
 
-
+}
 else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
-	if(strpos($incomingMsg,"ไล่บอท") !== false)
+	if(strpos($incomingMsg,"bleave") !== false)
         {
-		$replyText = 'บายจ้า';
+		$replyText = 'บอทกำลังออกจากห้อง';
 		$reply = array(
 								'replyToken' => $replyToken,														
 								'messages' => array(
@@ -84,7 +97,7 @@ else if($message['type']=='text')
 							);
                }
 	       }
-	else if(strpos($incomingMsg,"ทดสอบ") !== false)
+	else if(strpos($incomingMsg,"groupid") !== false)
 	{
 		$userData = null;
 		if($source['type'] == "group") {
