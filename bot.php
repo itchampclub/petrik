@@ -61,6 +61,25 @@ else if($message['type']=='text')
 		$leave = true;
 }
 }	
+	
+else if($message['type']=='text')
+{
+	$incomingMsg = strtolower($message['text']);
+	if(strpos($incomingMsg,"id") !== false)
+{
+		$replyText = 'บายจ้า';
+		$reply = array(
+								'replyToken' => $replyToken,														
+								'messages' => array(
+									array(
+											'type' => 'text',					
+											'text' => $AuserId
+										)
+								)
+							);
+}	
+}	
+
 	else if(preg_match($helloPattern, $incomingMsg))
 {
 
