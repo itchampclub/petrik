@@ -37,7 +37,7 @@ $placeRecommendationPattern = '/'.'rekomendasi tempat'.'/';
 $salamPattern ='/'.'(selamat)?( )?(pagi|siang|sore|malam) (pet|petrik)'.'/';
 $greetingPattern = '/'.'(good)?( )?(morning|afternoon|evening|night) (pet|petrik)'.'/';
 
-if($type == 'join') {
+if($type == 'memberJoined') {
 	$replyText = 'Halo, kenalin gw Petrik, teman nya Kerang Ajaib'.chr(10);
 	$replyText .= chr(10).'Gw bisa bantu kalian nentuin tempat makan jika kalian bingung, maupun memberitahu nilai tuker mata uang (baik valas maupun crypto currency) loh..'.chr(10);
 	$replyText .= chr(10).'Untuk lebih jelas, bisa ketik -help';
@@ -73,23 +73,6 @@ else if($message['type']=='text')
 
 	}
 	
-	
-	else if($replyToken['type']=='memberJoined') !== false)
-
-	
-	{
-		$replyText = 'Membe Joined';
-		$reply = array(
-								'replyToken' => $replyToken,														
-								'messages' => array(
-									array(
-											'type' => 'text',					
-											'text' => $replyText
-										)
-								)
-							);
-
-	}
 	
 	else if(preg_match($helloPattern, $incomingMsg))
 	{
