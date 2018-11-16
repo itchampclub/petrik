@@ -17,6 +17,7 @@ $event 			= $client->parseEvents()[0];
 $type 			= $event['type']; 
 $source     	= $event['source'];
 $userId 		= $source['userId'];
+$AuserId 		= $source['groupId'];
 $replyToken 	= $event['replyToken'];
 $timestamp		= $event['timestamp'];
 $message 		= $event['message'];
@@ -27,13 +28,8 @@ $yesNoList = array("Iya", "Nggak");
 
 
 $helloPattern = '/'.'^(hi|hai|hei|hey|helo|hello|halo|hallo) (pet|petrik)'.'/';
-$currencyPattern = '/'.'nilai tukar (...)+ ke (...)+'.'/';
-$cryptoPattern = '/'.'info harga crypto (...)+'.'/';
 $wnzPattern = '/'.'^apakah (erwin|erwinwnz|win|winz|winzz|wnz)'.'/';
-$eatPlacePattern = '/'.'(makan dimana|makan di mana)'.'/';
-$placeRecommendationPattern = '/'.'rekomendasi tempat'.'/';
 $salamPattern ='/'.'(selamat)?( )?(pagi|siang|sore|malam) (pet|petrik)'.'/';
-$greetingPattern = '/'.'(good)?( )?(morning|afternoon|evening|night) (pet|petrik)'.'/';
 
 if($type == 'memberJoined') {
 	$replyText = 'สวัสดี'.chr(10);
@@ -69,6 +65,23 @@ else if($message['type']=='text')
 		$leave = true;
 
 	}
+else if($message['type']=='text')
+{
+	$incomingMsg = strtolower($message['text']);
+	if(strpos($incomingMsg,"ทดสอบ") !== false)
+	{
+		$replyText = 'บายจ้า';
+		$reply = array(
+								'replyToken' => $replyToken,														
+								'messages' => array(
+									array(
+											'type' => 'text',					
+											'text' => $AgroupId
+										)
+								)
+							);
+
+	}
 	
 	
 	else if(preg_match($helloPattern, $incomingMsg))
@@ -97,30 +110,22 @@ else if($message['type']=='text')
 							)
 						);
 		}
+		else if($AgroupId == 1234) {
+			$replyText = "Hi ".$userData['displayName'];
+			$reply = array(
+							'replyToken' => $replyToken,														
+							'messages' => array(
+								array(
+										'type' => 'text',					
+										'text' => $replyText
+									)
+							)
+						);
+		}
 			
 		
 	}
-	else if(strpos($incomingMsg,"apakah ") !== false)
-	{
-		
-		if(preg_match($wnzPattern,$incomingMsg)) {
-			$replyText = 'All hail @erwinwnz';
-		}
-		else {
-			$replyText = $yesNoList[array_rand($yesNoList,1)];
-		}
-		
-		$reply = array(
-								'replyToken' => $replyToken,														
-								'messages' => array(
-									array(
-											'type' => 'text',					
-											'text' => $replyText
-										)
-								)
-							);
-
-	}
+	
 	else if(preg_match($salamPattern, $incomingMsg)) {
 			
 			$currentHour = date('H');
@@ -164,51 +169,7 @@ else if($message['type']=='text')
 								);
 		
 		
-	}
-	else if(preg_match($greetingPattern, $incomingMsg)) {
-				
-			$currentHour = date('H');
-			
-			if($currentHour > 3 && $currentHour <= 11) {
-				$replyText = "good morning ";
-			}
-			else if($currentHour > 12 && $currentHour <= 15) {
-				$replyText = "good afternoon ";
-			}
-			else if($currentHour > 15 && $currentHour <= 17) {
-				$replyText = "good evening ";
-			}
-			else {
-				$replyText = "good night ";
-			}
-
-			$userData = null;
-			if($source['type'] == "group") {
-				$userData = $client->getProfilFromGroup($userId, $source['groupId']);
-			}
-			else if($source['type'] == "room") {
-				$userData = $client->getProfilFromRoom($userId, $source['roomId']);
-			}
-			else if($source['type'] == "user") {
-				$userData = $client->profil($userId);
-			}
-			
-			if($userData != null) {
-				$replyText .= $userData['displayName'];
-			}
-			
-			$reply = array(
-									'replyToken' => $replyToken,														
-									'messages' => array(
-										array(
-												'type' => 'text',					
-												'text' => $replyText
-											)
-									)
-								);
-		}
-		
-		
+	}		
 }
 
 
