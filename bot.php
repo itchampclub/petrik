@@ -70,6 +70,7 @@ else if($message['type']=='text')
         }
 	else if(strpos($incomingMsg,"ตารางสอบ") !== false)
 		{
+		//**14318 - C87ac2631c435376c9c72c0fc4bbba5fd**//
                 if($source['groupId'] == 'Cb968a26fc8ed3eda142403d465d4b2a7')
                 {
 		$replyText = 'ตารางสอบวิชา 14215 คือ วันอาทิตย์ ที่ 27 มกราคม 2561 เวลา 13.30-16.30 น.';
