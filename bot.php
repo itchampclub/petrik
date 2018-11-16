@@ -36,6 +36,10 @@ if($type == 'memberJoined')
 							);
 
 }
+
+
+
+
 else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
@@ -55,6 +59,9 @@ else if($message['type']=='text')
 }
 }	
 	
+
+
+
 else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
@@ -73,6 +80,8 @@ else if($message['type']=='text')
 }	
 }	
 
+
+
 else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
@@ -80,20 +89,19 @@ else if($message['type']=='text')
 {
 
 		$userData = null;
-		if($source['type'] == "group") 
-{
+		if($source['type'] == "group") {
 			$userData = $client->getProfilFromGroup($userId, $source['groupId']);
-}
-		else if($source['type'] == "room") 
-{
+                                               }
+		else if($source['type'] == "room") {
 			$userData = $client->getProfilFromRoom($userId, $source['roomId']);
-}
-		else if($source['type'] == "user") 
-{
+                                               }
+		else if($source['type'] == "user") {
 			$userData = $client->profil($userId);
+                                               }
+		
 }
-		
-		
+}	
+	
 		if($userData != null) 
 {
 			$replyText = "Hi ".$source['groupId'];
@@ -106,8 +114,7 @@ else if($message['type']=='text')
 									)
 							)
 						);
-}			
-}
+			
 }
 
 if($reply != "") {
