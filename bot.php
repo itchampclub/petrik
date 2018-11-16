@@ -72,6 +72,25 @@ else if($message['type']=='text')
 		$leave = true;
 
 	}
+	
+	
+	else if($replyToken['type']=='memberJoined') !== false)
+
+	
+	{
+		$replyText = 'Membe Joined';
+		$reply = array(
+								'replyToken' => $replyToken,														
+								'messages' => array(
+									array(
+											'type' => 'text',					
+											'text' => $replyText
+										)
+								)
+							);
+
+	}
+	
 	else if(preg_match($helloPattern, $incomingMsg))
 	{
 
