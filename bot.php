@@ -4,7 +4,6 @@ require_once('./LineBotTiny.php');
 require_once('./Crypto.php');
 require_once('./CurrencyExchange.php');
 require_once('./Zomato.php');
-require_once('./GooglePlace.php');
 
 $channelAccessToken = '1B8pMUtZdLgdebgTuRrxV3YirCQv91mbXGnxvlTbX7Cxn471Fs0bBgwGVpedxnPKm7tZUWxnMrT2NqCBCLAG8L7r6vtYoZwb3iqRvYr3BZGrZX/mRNFG8lzNbLr5CHO4PWfTicerD5PVHYjC8mpQ4wdB04t89/1O/w1cDnyilFU=';
 $channelSecret = '69b2d81ee6e8ff48d2cacdc8c7d8c337';
@@ -22,7 +21,6 @@ $replyToken 	= $event['replyToken'];
 $timestamp		= $event['timestamp'];
 $message 		= $event['message'];
 $messageid 		= $message['id'];
-$googleMapUrl	= "https://www.google.com/maps/search/?api=1&query=";
 
 
 $yesNoList = array("Iya", "Nggak");
@@ -38,9 +36,9 @@ $salamPattern ='/'.'(selamat)?( )?(pagi|siang|sore|malam) (pet|petrik)'.'/';
 $greetingPattern = '/'.'(good)?( )?(morning|afternoon|evening|night) (pet|petrik)'.'/';
 
 if($type == 'memberJoined') {
-	$replyText = 'Halo, kenalin gw Petrik, teman nya Kerang Ajaib'.chr(10);
-	$replyText .= chr(10).'Gw bisa bantu kalian nentuin tempat makan jika kalian bingung, maupun memberitahu nilai tuker mata uang (baik valas maupun crypto currency) loh..'.chr(10);
-	$replyText .= chr(10).'Untuk lebih jelas, bisa ketik -help';
+	$replyText = 'สวัสดี'.chr(10);
+	$replyText .= chr(10).'นี่คือข้อความต้อนรับจากบอท'.chr(10);
+	$replyText .= chr(10).'นะจ้ะ';
 	
 	$reply = array(
 								'replyToken' => $replyToken,														
@@ -53,13 +51,13 @@ if($type == 'memberJoined') {
 							);
 
 }
-else if($message['type']=='text')
+else if(preg_match($incomingMsg))
 {
 	$incomingMsg = strtolower($message['text']);
 
-	if(strpos($incomingMsg,"kids jaman now") !== false)
+	if(strpos($incomingMsg,"ไล่บอท") !== false)
 	{
-		$replyText = 'Wahh, gw ketahuan';
+		$replyText = 'บายจ้า';
 		$reply = array(
 								'replyToken' => $replyToken,														
 								'messages' => array(
@@ -397,48 +395,7 @@ else if($message['type']=='text')
 		
 		
 }
-else if($message['type']=='location') {
-	$lat = $message['latitude'];
-	$lon = $message['longitude'];
-	$googlePlace = new GooglePlace();
-	$result = $googlePlace->getNearByPlaces($lat,$lon);
 
-	if($result != null) {
-		$replyText = 'Mungkin bisa coba '.$result['name'];
-		$restaurantPlaceId = $result['place_id'];
-		$urlPlaces = $googleMapUrl.$lat.",".$lon."&query_place_id=".$restaurantPlaceId;
-		$reply = array(
-								'replyToken' => $replyToken,														
-								'messages' => array(
-									array(
-											'type' => 'text',					
-											'text' => $replyText
-										),
-									
-									array(
-											'type' => 'text',					
-											'text' => $urlPlaces
-										)
-								)
-							);
-				
-		
-	}
-	else {
-		$replyText = "Hmm, sepertinya Petrik tidak mengenali tempat itu";
-		$reply = array(
-								'replyToken' => $replyToken,														
-								'messages' => array(
-									array(
-											'type' => 'text',					
-											'text' => $replyText
-										)
-								)
-							);
-				
-		
-	}
-}
 
 
 if($reply != "") {
