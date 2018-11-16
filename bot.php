@@ -66,7 +66,7 @@ else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
 	if(strpos($incomingMsg,"id") !== false)
-{
+        {
 		$replyText = "Hi";
 		$reply = array(
 								'replyToken' => $replyToken,														
@@ -77,16 +77,16 @@ else if($message['type']=='text')
 										)
 								)
 							);
-}	
-}	
+        }	
+	
 
 
 
-else if($message['type']=='text')
-{
+        else if($incomingMsg)
+        {
 	$incomingMsg = strtolower($message['text']);
 	if(strpos($incomingMsg,"hi") !== false)
-{
+        {
 
 		$userData = null;
 		if($source['type'] == "group") {
@@ -99,9 +99,9 @@ else if($message['type']=='text')
 			$userData = $client->profil($userId);
                                                }
 		
-}
-}	
-	
+         }
+         }	
+	 }
 		if($userData != null) 
 {
 			$replyText = "Hi ".$source['groupId'];
