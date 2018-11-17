@@ -52,7 +52,7 @@ else if($type == 'join')
 else if($message['type']=='text')
 {
 	$incomingMsg = strtolower($message['text']);
-	if(strpos($incomingMsg,"bleave") !== false)
+	if(strpos($incomingMsg,"botleave") !== false)
         {
 	        $replyText = '';
 		$reply = array(
