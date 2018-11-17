@@ -21,8 +21,7 @@ $messageid 		= $message['id'];
 
 if($type == 'memberJoined') 
 {
-	$replyText = 'ยินดีต้อนรับเข้าสู่กลุ่มวิชา'.chr(10);
-	$replyText .= chr(10).'หลักการแปล 14318'.chr(10);
+	$replyText = 'ยินดีต้อนรับ'.chr(10);
 	
 	$reply = array(
 								'replyToken' => $replyToken,														
