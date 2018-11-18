@@ -19,9 +19,27 @@ $messageid 		= $message['id'];
 
 
 
+
+
+if($source['type'] == "group") {
+			$userData = $client->getProfilFromGroup($userId, $source['groupId']);
+		}
+		else if($source['type'] == "room") {
+			$userData = $client->getProfilFromRoom($userId, $source['roomId']);
+		}
+		else if($source['type'] == "user") {
+			$userData = $client->profil($userId);
+		}
+
+
+
+
+
+
+
 if($type == 'memberJoined') 
 {
-	$replyText = 'ยินดีต้อนรับ'.chr(10);
+	$replyText = "Hi ".$userData['displayName'];
 	
 	$reply = array(
 								'replyToken' => $replyToken,														
